@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex JS</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="grid">
+
+        <header class="header">
+            <div class="header__content container">
+                <a href="#" class="header__logo">Pokédex JS</a>
+            </div>
+        </header>
+
+        <form id="form" class="form container">
+            <label for="id" class="form__label">Ingresa el ID de un pokemon</label>
+            <input 
+                type="text"
+                class="form__input"
+                placeholder="ID del pokemon"
+                name="id"
+                id="input"
+                autofocus
+            >
+            <button type="button" id="btn-random" class="btn btn--primary btn__random">Aleatorio</button>
+            <input 
+                type="submit" 
+                class="form__submit btn btn--submit"
+                value="Buscar"
+            >
+        </form>
+
+        <main class="main container" id="main">
+
+        </main>
+
+        <footer class="footer">
+            <div class="footer__content container">
+                <p class="footer__text">Desarrollado por Emilio Soto Andrade (<span class="yellow">@mmilo-code</span>). Todos los derechos reservados 2021 &copy;</p>
+            </div>
+        </footer>
+
+    </div>
+
+
+
+    <template id="template__card">
+        <div class="card">
+            <div class="card__main-info">
+                <img class="card__image"></img>
+                <div class="card__name-id">
+                    <p class="card__name"></p>
+                    <p class="card__id">#</p>
+                </div>
+            </div>
+            <p class="card__desc"><strong>Descripción: </strong></p>
+            <div class="card__lists">
+                <ul class="card__list card__list--a">
+                    <li class="card__item card__item--ps"><strong>PS: </strong></li>
+                    <li class="card__item card__item--att"><strong>Ataque: </strong></li>
+                    <li class="card__item card__item--def"><strong>Defensa: </strong></li>
+                </ul>
+                <ul class="card__list card__list--b">
+                    <li class="card__item card__item--attes"><strong>Ataque Esp: </strong></li>
+                    <li class="card__item card__item--defes"><strong>Defensa Esp: </strong></li>
+                    <li class="card__item card__item--vel"><strong>Velocidad: </strong></li>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+
+    <script src="js/main.js"></script>
+</body>
+</html>
