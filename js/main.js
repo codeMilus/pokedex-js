@@ -4,19 +4,19 @@ const btnRandom = document.getElementById('btn-random')
 const form = document.getElementById('form')
 const pokeAPI = 'https://pokeapi.co/api/v2/'
 
+const pokemonMin = 1
+const pokemonMax = 151
+
 
 // Funciones
 const randomPoke = () => {
-    let poke = Math.floor(Math.random() * (152 - 1)) + 1
+    let poke = Math.floor(Math.random() * (pokemonMax - pokemonMin)) + pokemonMin
     input.value = poke
 }
 
 const mostrarPokemon = (pokemon, desc) => {
 
     const main = document.getElementById('main')
-    const card = document.getElementById('template__card').content
-    const cardClone = card.cloneNode(true)
-    const fragment = document.createDocumentFragment()
 
     const pokeInfo = {
         id: desc.id,
@@ -33,6 +33,35 @@ const mostrarPokemon = (pokemon, desc) => {
         }
     }
 
+    let card = `
+    <div class="card">
+        <div class="card__main-info">
+            <img src="${pokeInfo.foto}" class="card__image"></img>
+            <div class="card__name-id">
+                <p class="card__name">${pokeInfo.nombre}</p>
+                <p class="card__id">#${pokeInfo.id}</p>
+            </div>
+        </div>
+        <p class="card__desc"><strong>Descripción: </strong>${pokeInfo.descripcion}</p>
+        <div class="card__lists">
+            <ul class="card__list card__list--a">
+                <li class="card__item card__item--ps"><strong>PS: </strong>${pokeInfo.stats.hp}</li>
+                <li class="card__item card__item--att"><strong>Ataque: </strong>${pokeInfo.stats.att}</li>
+                <li class="card__item card__item--def"><strong>Defensa: </strong>${pokeInfo.stats.def}</li>
+            </ul>
+            <ul class="card__list card__list--b">
+                <li class="card__item card__item--attes"><strong>Ataque Esp: </strong>${pokeInfo.stats.attEsp}</li>
+                <li class="card__item card__item--defes"><strong>Defensa Esp: </strong>${pokeInfo.stats.defEsp}</li>
+                <li class="card__item card__item--vel"><strong>Velocidad: </strong>${pokeInfo.stats.vel}</li>
+            </ul>
+        </div>
+    </div>
+    `
+
+    main.innerHTML = card;
+
+    
+
     console.log(`ID: ${pokeInfo.id}
     Nombre: ${pokeInfo.nombre}
     Foto: ${pokeInfo.foto}
@@ -44,26 +73,6 @@ const mostrarPokemon = (pokemon, desc) => {
     Ataque Especial: ${pokeInfo.stats.attEsp}
     Defensa Especial: ${pokeInfo.stats.defEsp}
     Velocidad: ${pokeInfo.stats.vel}`)
-
-
-    cardClone.querySelector('.card__image').setAttribute('src', pokeInfo.foto)    
-
-    cardClone.querySelector('.card__name').innerHTML = pokeInfo.nombre
-    cardClone.querySelector('.card__id').innerHTML += pokeInfo.id
-    cardClone.querySelector('.card__desc').innerHTML += pokeInfo.descripcion
-
-    cardClone.querySelector('.card__item--ps').innerHTML += pokeInfo.stats.hp
-    cardClone.querySelector('.card__item--att').innerHTML += pokeInfo.stats.att
-    cardClone.querySelector('.card__item--def').innerHTML += pokeInfo.stats.def
-    cardClone.querySelector('.card__item--attes').innerHTML += pokeInfo.stats.attEsp
-    cardClone.querySelector('.card__item--defes').innerHTML += pokeInfo.stats.defEsp
-    cardClone.querySelector('.card__item--vel').innerHTML += pokeInfo.stats.vel
-
-    fragment.appendChild(cardClone)
-    main.appendChild(fragment)
-    
-
-
 
 }
 
@@ -85,7 +94,7 @@ btnRandom.addEventListener('click', randomPoke)
 form.addEventListener('submit', e => {
     e.preventDefault()
     if (input.value.trim() != '') {
-        if (input.value >= 1 && input.value < 152) {
+        if (input.value >= pokemonMin && input.value < pokemonMax) {
             fetchData(input.value)
             form.reset()
             input.focus()
